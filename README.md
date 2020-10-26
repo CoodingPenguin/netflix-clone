@@ -13,10 +13,17 @@
 
 ## ✅ TODO
 
+> 다하고 Screens, Components, Styling 등으로 나눠서 정리하기
+
 ### Screens
 
 - [ ] Home
 - [ ] TV Shows
 - [ ] Search
 - [ ] Detail
+
+### Components
+
+- [ ] Header
+- [ ] Router
 
