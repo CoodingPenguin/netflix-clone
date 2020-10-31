@@ -33,12 +33,12 @@ export default class extends React.Component {
     }
 
     // 2. path가 movie인지 show인지 검사 후 데이터 로드
-    let result;
+    let result = null;
     try {
       if (isMovie) {
-        result = await movieApi.movieDetail(parsedId);
+        ({ data: result } = await movieApi.movieDetail(parsedId));
       } else {
-        result = await tvApi.showDetail(parsedId);
+        ({ data: result } = await tvApi.showDetail(parsedId));
       }
     } catch {
       this.setState({ error: "Can't find anything." });
@@ -49,6 +49,7 @@ export default class extends React.Component {
 
   render() {
     const { result, error, loading } = this.state;
+    console.log(result);
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }
 }
