@@ -7,8 +7,20 @@
 ## 🔥 Code Challenge
 
 강의 외에 추가적으로 구현해야 하는 부분
+Popcorn Times 참고
 
-- [ ] TV에 인기 TV Show 추가하기
+### Movie
+
+- [ ] IMDB Link
+- [ ] Tabs inside of Movies / Show Details (유튜브, 영화제작사, 나라, 언어)
+- [ ] Collections
+- [ ] `/collections` routing
+
+### TV Shows
+
+- [ ] Producer profiles
+- [ ] Broadcast station `networks` 
+- [ ] Show seasons and creators
 
 
 ## ✅ TODO
