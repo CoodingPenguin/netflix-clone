@@ -29,11 +29,12 @@
 
 ### API Verbs
 
-- [ ] Now Playing (Movie)
-- [ ] Top Rated (TV)
-- [ ] Popular (TV, Movie)
-- [ ] Upcoming (Movie)
-- [ ] Airing Today (TV)
-- [ ] TV Show Detail
-- [ ] Movie Detail
+- [x] Now Playing (Movie)
+- [x] Top Rated (TV)
+- [x] Popular (TV, Movie)
+- [x] Upcoming (Movie)
+- [x] Airing Today (TV)
+- [x] TV Show Detail
+- [x] Movie Detail
+- [ ] Search (Movie, TV)
 
