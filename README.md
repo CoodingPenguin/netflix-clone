@@ -30,8 +30,10 @@
 ### API Verbs
 
 - [ ] Now Playing (Movie)
-- [ ] Top Rated (TV, Movie)
+- [ ] Top Rated (TV)
 - [ ] Popular (TV, Movie)
-- [ ] Upcoming (TV, Movie)
+- [ ] Upcoming (Movie)
 - [ ] Airing Today (TV)
+- [ ] TV Show Detail
+- [ ] Movie Detail
 
