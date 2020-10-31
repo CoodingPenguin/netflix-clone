@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// axios 객체 생성: TMDB api 주소를 원하는 대로 설정하여 요청을 보냄
+// axios 객체 생성: TMDB api 주소를 원하는 대로 설정
 const api = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
   params: {
