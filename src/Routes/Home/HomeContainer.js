@@ -29,7 +29,7 @@ export default class extends React.Component {
       // 2. 받은 데이터를 state에 저장
       this.setState({ nowPlaying, upcoming, popular });
     } catch {
-      this.setState({ error: "Can't find movie data." });
+      this.setState({ error: "Can't find Movie information." });
     } finally {
       this.setState({ loading: false });
     }
