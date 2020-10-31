@@ -27,3 +27,11 @@
 - [ ] Header
 - [ ] Router
 
+### API Verbs
+
+- [ ] Now Playing (Movie)
+- [ ] Top Rated (TV, Movie)
+- [ ] Popular (TV, Movie)
+- [ ] Upcoming (TV, Movie)
+- [ ] Airing Today (TV)
+
