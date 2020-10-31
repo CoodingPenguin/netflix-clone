@@ -41,3 +41,5 @@ Poster.propTypes = {
   year: PropTypes.string,
   isMovie: PropTypes.bool,
 };
+
+export default Poster;
