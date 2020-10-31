@@ -11,15 +11,25 @@ export default class extends React.Component {
     loading: false,
   };
 
-  // 1. searchTerm이 있는지 체크하고 있다면 데이터 로드
-  handleSubmit = () => {
+  // onSubmit: searchTerm이 있는지 체크하고 있다면 데이터 로드
+  handleSubmit = (event) => {
+    // Enter를 누르면 새로고침되는 것을 방지
+    event.preventDefault();
     const { searchTerm } = this.state;
     if (searchTerm !== "") {
       this.searchByTerm();
     }
   };
 
-  // 2. searchTerm을 갖고 있는 영화, TV쇼 데이터 로드
+  // onChange: 입력값에 따라 searchTerm을 바꿈
+  updateTerm = (event) => {
+    const {
+      target: { value },
+    } = event;
+    this.setState({ searchTerm: value });
+  };
+
+  // API를 호출하여 searchTerm을 갖고 있는 영화, TV쇼 데이터 로드
   searchByTerm = async () => {
     const { searchTerm } = this.state;
     this.setState({ loading: true });
@@ -51,6 +61,7 @@ export default class extends React.Component {
         error={error}
         loading={loading}
         handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     );
   }
