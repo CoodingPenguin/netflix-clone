@@ -11,7 +11,7 @@ Popcorn Times 참고
 
 ### Movie
 
-- [ ] IMDB Link
+- [x] IMDB Link
 - [ ] Tabs inside of Movies / Show Details (유튜브, 영화제작사, 나라, 언어)
 - [ ] Collections
 - [ ] `/collections` routing

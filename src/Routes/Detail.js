@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 import { movieApi, tvApi } from "../api";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import Badge from "Components/Badge";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -99,6 +100,7 @@ export default ({
         ({ data: result } = await tvApi.showDetail(parsedId));
       }
       setResult(result);
+      console.log(result);
     } catch {
       setError("Can't find anything.");
     } finally {
@@ -123,8 +125,7 @@ export default ({
     <Container>
       <Helmet>
         <title>
-          {result.original_title ? result.original_title : result.original_name}{" "}
-          | Netflix
+          {isMovie ? result.original_title : result.original_name} | Netflix
         </title>
       </Helmet>
       <Backdrop
@@ -140,19 +141,17 @@ export default ({
         ></Cover>
         <Data>
           <Title>
-            {result.original_title
-              ? result.original_title
-              : result.original_name}
+            {isMovie ? result.original_title : result.original_name}
           </Title>
           <ItemContainer>
             <Item>
-              {result.release_date
+              {isMovie
                 ? result.release_date.substring(0, 4)
                 : result.first_air_date.substring(0, 4)}
             </Item>
             <Divider>•</Divider>
             <Item>
-              {result.runtime ? result.runtime : result.episode_run_time[0]} min
+              {isMovie ? result.runtime : result.episode_run_time[0]} min
             </Item>
             <Divider>•</Divider>
             <Item>
@@ -163,6 +162,33 @@ export default ({
                     : `${genre.name}  /  `
                 )}
             </Item>
+            {isMovie
+              ? result.imdb_id && (
+                  <>
+                    <Divider>•</Divider>
+                    <Item>
+                      <Badge
+                        title="IMDB"
+                        color="black"
+                        bgColor="#f3ce13"
+                        url={`https://www.imdb.com/title/${result.imdb_id}`}
+                      />
+                    </Item>
+                  </>
+                )
+              : result.external_ids.imdb_id && (
+                  <>
+                    <Divider>•</Divider>
+                    <Item>
+                      <Badge
+                        title="IMDB"
+                        color="black"
+                        bgColor="#f3ce13"
+                        url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
+                      />
+                    </Item>
+                  </>
+                )}
           </ItemContainer>
           <Overview>{result.overview}</Overview>
         </Data>
