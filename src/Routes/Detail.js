@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Helmet from "react-helmet";
+import { movieApi, tvApi } from "../api";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
 
@@ -69,8 +69,48 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
-  loading ? (
+// { result, error, loading }
+export default ({
+  history: { push },
+  location: { pathname },
+  match: {
+    params: { id },
+  },
+}) => {
+  const [result, setResult] = useState([]);
+  const [isMovie] = useState(pathname.includes("/movie/"));
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const loadDetail = async () => {
+    const parsedId = parseInt(id);
+
+    // 1. id가 숫자로만 이루어져있는지 체크
+    if (isNaN(parsedId)) {
+      return push("/");
+    }
+
+    // 2. path가 movie인지 show인지 검사 후 데이터 로드
+    let result = null;
+    try {
+      if (isMovie) {
+        ({ data: result } = await movieApi.movieDetail(parsedId));
+      } else {
+        ({ data: result } = await tvApi.showDetail(parsedId));
+      }
+      setResult(result);
+    } catch {
+      setError("Can't find anything.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadDetail();
+  }, []);
+
+  return loading ? (
     <>
       <Helmet>
         <title>Loading...</title>
@@ -95,7 +135,7 @@ const DetailPresenter = ({ result, error, loading }) =>
           bgImage={
             result.poster_path
               ? `https://image.tmdb.org/t/p/original${result.poster_path}`
-              : require("../../Assets/noPosterBig.png")
+              : require("../Assets/noPosterBig.png")
           }
         ></Cover>
         <Data>
@@ -129,11 +169,4 @@ const DetailPresenter = ({ result, error, loading }) =>
       </Content>
     </Container>
   );
-
-DetailPresenter.propTypes = {
-  result: PropTypes.object,
-  error: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
 };
-
-export default DetailPresenter;
