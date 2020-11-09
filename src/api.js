@@ -17,7 +17,8 @@ export const tvApi = {
   showDetail: (id) =>
     api.get(`tv/${id}`, {
       params: {
-        append_to_response: "videos,external_ids",
+        append_to_response:
+          "changes,content_ratings,videos,credits,external_ids,keywords, similar",
       },
     }),
   search: (term) =>
@@ -36,7 +37,8 @@ export const movieApi = {
   movieDetail: (id) =>
     api.get(`movie/${id}`, {
       params: {
-        append_to_response: "videos",
+        append_to_response:
+          "titles,changes,credits,images,keywords,lists,releases,reviews,similar,videos",
       },
     }),
   search: (term) =>

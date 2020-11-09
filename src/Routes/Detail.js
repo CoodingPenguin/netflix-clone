@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import { movieApi, tvApi } from "../api";
@@ -10,7 +11,7 @@ const Container = styled.div`
   height: calc(100vh - 50px);
   width: 100%;
   position: relative;
-  padding: 50px;
+  padding: 20px 50px;
 `;
 
 const Backdrop = styled.div`
@@ -27,10 +28,27 @@ const Backdrop = styled.div`
   z-index: 0;
 `;
 
+const Navigator = styled.div`
+  width: 100%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+`;
+
+const Tab = styled.div`
+  margin-right: 50px;
+  color: white;
+  border: 1px solid white;
+  padding: 5px;
+`;
+
 const Content = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 90%;
   position: relative;
   z-index: 1;
 `;
@@ -61,6 +79,10 @@ const Item = styled.span``;
 
 const Divider = styled.span`
   margin: 0 10px;
+`;
+
+const Blank = styled.span`
+  margin: 0 5px;
 `;
 
 const Overview = styled.p`
@@ -131,6 +153,11 @@ export default ({
       <Backdrop
         bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
       />
+      <Navigator>
+        <Tab>{isMovie ? "Movie" : "Show"}</Tab>
+        <Tab>Details</Tab>
+        <Tab>{isMovie ? "Series" : "Seasons"}</Tab>
+      </Navigator>
       <Content>
         <Cover
           bgImage={
@@ -162,33 +189,58 @@ export default ({
                     : `${genre.name}  /  `
                 )}
             </Item>
+          </ItemContainer>
+          <ItemContainer>
+            <Item>
+              <Badge
+                title="Website"
+                color="black"
+                bgColor="#eeeeee"
+                url={result.homepage}
+              />
+            </Item>
+            <Blank />
             {isMovie
               ? result.imdb_id && (
-                  <>
-                    <Divider>•</Divider>
-                    <Item>
-                      <Badge
-                        title="IMDB"
-                        color="black"
-                        bgColor="#f3ce13"
-                        url={`https://www.imdb.com/title/${result.imdb_id}`}
-                      />
-                    </Item>
-                  </>
+                  <Item>
+                    <Badge
+                      title="IMDB"
+                      color="black"
+                      bgColor="#f3ce13"
+                      url={`https://www.imdb.com/title/${result.imdb_id}`}
+                    />
+                  </Item>
                 )
               : result.external_ids.imdb_id && (
-                  <>
-                    <Divider>•</Divider>
-                    <Item>
-                      <Badge
-                        title="IMDB"
-                        color="black"
-                        bgColor="#f3ce13"
-                        url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
-                      />
-                    </Item>
-                  </>
+                  <Item>
+                    <Badge
+                      title="IMDB"
+                      color="black"
+                      bgColor="#f3ce13"
+                      url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
+                    />
+                  </Item>
                 )}
+            <Item>
+              {result.videos &&
+                result.videos.results
+                  .filter((video) => video.site === "YouTube")
+                  .map((video, index) => {
+                    const { id, key, type } = video;
+                    return (
+                      <>
+                        <Blank />
+                        <Badge
+                          key={id}
+                          title={`Youtube - ${type}`}
+                          color="black"
+                          bgColor="#e62117"
+                          url={`https://www.youtube.com/watch?v=${key}`}
+                        />
+                      </>
+                    );
+                  })}
+            </Item>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
         </Data>

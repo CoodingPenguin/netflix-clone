@@ -11,16 +11,15 @@ Popcorn Times 참고
 
 ### Movie
 
-- [x] IMDB Link
-- [ ] Tabs inside of Movies / Show Details (유튜브, 영화제작사, 나라, 언어)
-- [ ] Collections
-- [ ] `/collections` routing
+- [x] Link : `imdb_id`, `homepage`, `videos`
+- [ ] 세부 정보 Tab: `production_companies`, `production_countries`, `credits`, `keywords`
+- [ ] 시리즈 Tab: `belongs_to_collections`
 
 ### TV Shows
 
-- [ ] Producer profiles
-- [ ] Broadcast station `networks` 
-- [ ] Show seasons and creators
+- [x] Link: `external_ids.imdb_id`, `homepage`, `videos`
+- [ ] 세부 정보 Tab: `production_companies`, `networkds`, `number_of_seasons`, `number_of_episodes`, `original_country`, `keywords`
+- [ ] 시즌 Tab: `seasons`
 
 
 ## ✅ TODO
