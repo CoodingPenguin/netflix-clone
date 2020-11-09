@@ -12,6 +12,7 @@ const Container = styled.div`
   width: 100%;
   position: relative;
   padding: 20px 50px;
+  display: flex;
 `;
 
 const Backdrop = styled.div`
@@ -29,26 +30,29 @@ const Backdrop = styled.div`
 `;
 
 const Navigator = styled.div`
-  width: 100%;
-  height: 10%;
+  width: 10%;
+  height: 100%;
+  padding: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  padding-bottom: 20px;
+  border-right: 1px solid white;
+  margin-right: 20px;
 `;
 
 const Tab = styled.div`
-  margin-right: 50px;
+  width: 100%;
   color: white;
-  border: 1px solid white;
-  padding: 5px;
+  font-size: 16px;
+  text-align: right;
+  margin-bottom: 50px;
 `;
 
 const Content = styled.div`
   display: flex;
-  width: 100%;
-  height: 90%;
+  width: 90%;
+  height: 100%;
   position: relative;
   z-index: 1;
 `;
