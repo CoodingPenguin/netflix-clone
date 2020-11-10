@@ -53,7 +53,7 @@ export default withRouter(({ location: { pathname } }) => (
       <Item current={pathname === "/" | pathname.startsWith('/movie')}>
         <SLink to="/">Movies</SLink>
       </Item>
-      <Item current={pathname.startsWith("/tv")}>
+      <Item current={pathname === "/tv" | pathname.startsWith('/show')}>
         <SLink to="/tv">TV</SLink>
       </Item>
       <Item current={pathname === "/search"}>

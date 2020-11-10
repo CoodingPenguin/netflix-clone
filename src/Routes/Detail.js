@@ -33,6 +33,7 @@ const Backdrop = styled.div`
 
 const Title = styled.h3`
   font-size: 32px;
+  font-weight: 700;
   margin-bottom: 20px;
 `;
 
@@ -98,7 +99,7 @@ const KeyValueRow = styled.div`
 const Key = styled.span`
   font-size: 16px;
   font-weight: 500;
-  margin-right: 5px;
+  margin-right: 15px;
 `;
 
 const Value = styled.span`
@@ -227,7 +228,10 @@ export default ({
             <KeyValueRow>
               <Key>Countries</Key>
               <Value>
-                {result.production_countries && result.production_countries.length > 0 ?
+                {isMovie ?
+                  result.production_countries 
+                  && result.production_countries.length > 0
+                  && (
                   result.production_countries
                   .filter((country, index) => index < 5)
                   .map((country, index) => 
@@ -235,22 +239,116 @@ export default ({
                     index === 4
                       ?
                       <>
-                        <span>{`${country.name}   `}</span>
+                        {`${country.iso_3166_1}  `}
                         <ReactCountryFlag countryCode={`${country.iso_3166_1}`} svg />
                       </>
                       :
                       <>
-                        <span>{`${country.name}   `}</span>
+                        {`${country.iso_3166_1}  `}
                         <ReactCountryFlag countryCode={`${country.iso_3166_1}`} svg />
+                        <Divider>/</Divider>
+                      </>
+                    )
+                  )
+                  : 
+                  result.origin_country
+                  && result.origin_country.length > 0
+                  && result.origin_country
+                      .filter((country, index) => index < 5)
+                      .map((country, index) => 
+                        index === result.origin_country.length - 1 |
+                        index === 4
+                          ?
+                            <>
+                              {`${country}  `}
+                              <ReactCountryFlag countryCode={`${country}`} svg />
+                            </>
+                          :
+                            <>
+                              {`${country}  `}
+                              <ReactCountryFlag countryCode={`${country}`} svg />
+                              <Divider>/</Divider>
+                            </>
+                        )
+                  }
+                </Value>
+            </KeyValueRow>
+            {
+              isMovie 
+              ? 
+              ""
+              :
+              <>
+                <Key>Networks</Key>
+                <Value>
+                  {              
+                  result.networks
+                    && result.networks.length > 0
+                    && result.networks
+                        .filter((network, index) => index < 5)
+                        .map((network, index) =>
+                          index === result.networks.length - 1 |
+                          index === 4
+                          ? <span>{network.name}</span>
+                          : <>
+                              <span>{network.name}</span>
+                              <Divider>/</Divider>
+                          </>
+                        )
+                  }
+                </Value>
+              </>
+            }
+          </ContentItem>
+        </Content>
+        <Content>
+            <ContentTitle>
+              Credits
+              <Dot />
+            </ContentTitle>
+            <ContentItem>
+              <KeyValueRow>
+                <Key>Crews</Key>
+                <Value>
+                {result.credits.crew && result.credits.crew.length > 0 ?
+                  result.credits.crew
+                  .filter((person, index) => index < 5)
+                  .map((person, index) => 
+                    index === result.credits.crew.length - 1 |
+                    index === 4
+                      ? <span>{person.name}</span>
+                      :
+                      <>
+                        <span>{person.name}</span>
                         <Divider>/</Divider>
                       </>
                     )
                   : "None"
                   }
                 </Value>
-            </KeyValueRow>
-          </ContentItem>
-        </Content>
+              </KeyValueRow>
+              <KeyValueRow>
+                <Key>Casts</Key>
+                <Value>
+                {result.credits.cast && result.credits.cast.length > 0 ?
+                  result.credits.cast
+                  .filter((person, index) => index < 5)
+                  .map((person, index) => 
+                    index === result.credits.cast.length - 1 |
+                    index === 4
+                      ? <span>{person.name}</span>
+                      :
+                      <>
+                        <span>{person.name}</span>
+                        <Divider>/</Divider>
+                      </>
+                    )
+                  : "None"
+                  }
+                </Value>
+              </KeyValueRow>
+            </ContentItem>
+          </Content>
       </ContentContainer>
     </Container>
   );

@@ -18,7 +18,7 @@ Popcorn Times 참고
 ### TV Shows
 
 - [x] Link: `external_ids.imdb_id`, `homepage`, `videos`
-- [ ] 세부 정보 Tab: `production_companies`, `networkds`, `number_of_seasons`, `number_of_episodes`, `original_country`, `keywords`
+- [ ] 세부 정보 Tab: `production_companies`, `networks`, `number_of_seasons`, `number_of_episodes`, `original_country`, `keywords`
 - [ ] 시즌 Tab: `seasons`
 
 
