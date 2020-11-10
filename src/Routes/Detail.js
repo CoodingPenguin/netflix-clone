@@ -115,6 +115,7 @@ const Key = styled.span`
 const Value = styled.span`
   opacity: 0.75;
   font-size: 14px;
+  line-height: 1.3;
 `;
 
 const Blank = styled.div`
@@ -138,6 +139,10 @@ const Iframe = styled.iframe`
   @media only screen and (max-width: 640px){
     height: 300px;
   }
+`;
+
+const Links = styled.div`
+  line-height: 2.5;
 `;
 
 export default ({
@@ -388,6 +393,7 @@ export default ({
             <Dot/>
           </ContentTitle>
           <ContentItem>
+            <Links>
             {
               result.homepage &&
               <Badge
@@ -440,6 +446,7 @@ export default ({
                   );
                 }
               )}
+            </Links>
             <Blank />
             {
               result.videos.results 
