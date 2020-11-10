@@ -49,7 +49,7 @@ export default () => {
   return (
     <>
       <Helmet>
-        <title>Movies | Netflix</title>
+        <title>Movies | StarWatches</title>
       </Helmet>
       {loading ? (
         <Loader />

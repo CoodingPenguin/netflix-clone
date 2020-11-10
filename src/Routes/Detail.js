@@ -176,7 +176,7 @@ export default ({
     <Container>
       <Helmet>
         <title>
-          {isMovie ? result.original_title : result.original_name} | Netflix
+          {isMovie ? result.original_title : result.original_name} | StarWatches
         </title>
       </Helmet>
       <Backdrop

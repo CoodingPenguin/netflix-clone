@@ -73,7 +73,7 @@ export default () => {
   return (
     <Container>
       <Helmet>
-        <title>Search | Netflix</title>
+        <title>Search | StarWatches</title>
       </Helmet>
       <Form onSubmit={handleSubmit}>
         <Input
