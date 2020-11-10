@@ -26,8 +26,8 @@ const Title = styled.span`
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  text-shadow: #333333 0 0 1px, #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px,
-    #fddb3a 0 0.5px 5px, #fddb3a 0 -0.5px 5px;
+  text-shadow: #222222 0 0 3px, #fddb3a 0.5px 0 7px, #fddb3a -0.5px 0 7px,
+    #fddb3a 0 0.5px 7px, #fddb3a 0 -0.5px 7px;
   color: #eeeeee;
   opacity: 0;
   transition: opacity 0.1s linear;
