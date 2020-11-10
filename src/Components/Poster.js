@@ -11,8 +11,24 @@ const Image = styled.div`
   background-image: url(${(props) => props.bgUrl});
   height: 180px;
   background-size: cover;
+  background-color: white;
   border-radius: 4px;
+  opacity: 0.6;
   background-position: center center;
+  transition: opacity 0.1s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Title = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px, #fddb3a 0 0.5px 5px,
+    #fddb3a 0 -0.5px 5px;
+  color: #eeeeee;
+  opacity: 0;
   transition: opacity 0.1s linear;
 `;
 
@@ -21,6 +37,7 @@ const Rating = styled.span`
   right: 5px;
   position: absolute;
   opacity: 0;
+  transition: opacity 0.1s linear;
 `;
 
 const ImageContainer = styled.div`
@@ -28,17 +45,15 @@ const ImageContainer = styled.div`
   position: relative;
   &:hover {
     ${Image} {
-      opacity: 0.3;
+      opacity: 1;
     }
     ${Rating} {
       opacity: 1;
     }
+    ${Title} {
+      opacity: 1;
+    }
   }
-`;
-
-const Title = styled.span`
-  display: block;
-  margin-bottom: 3px;
 `;
 
 const Year = styled.span`
@@ -56,7 +71,9 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
               ? `https://image.tmdb.org/t/p/w300${imageUrl}`
               : require("../Assets/noPosterSmall.png")
           }
-        />
+        >
+          <Title>{title}</Title>
+        </Image>
         <Rating>
           <span role="img" aria-label="rating">
             ⭐
@@ -64,7 +81,6 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
           {rating}/10
         </Rating>
       </ImageContainer>
-      <Title>{title}</Title>
       <Year>{year}</Year>
     </Container>
   </Link>
