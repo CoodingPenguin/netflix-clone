@@ -19,15 +19,25 @@ const Image = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 `;
 
 const Title = styled.span`
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  text-shadow: #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px, #fddb3a 0 0.5px 5px,
-    #fddb3a 0 -0.5px 5px;
+  text-shadow: #111111 0 0 0.5px, #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px,
+    #fddb3a 0 0.5px 5px, #fddb3a 0 -0.5px 5px;
   color: #eeeeee;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+`;
+
+const Year = styled.span`
+  font-size: 14px;
+  margin-top: 5px;
+  color: #eeeeee;
+  text-shadow: #111111 0 0 4px;
   opacity: 0;
   transition: opacity 0.1s linear;
 `;
@@ -53,12 +63,10 @@ const ImageContainer = styled.div`
     ${Title} {
       opacity: 1;
     }
+    ${Year} {
+      opacity: 1;
+    }
   }
-`;
-
-const Year = styled.span`
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.5);
 `;
 
 const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
@@ -73,6 +81,7 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
           }
         >
           <Title>{title}</Title>
+          <Year>{year}</Year>
         </Image>
         <Rating>
           <span role="img" aria-label="rating">
@@ -81,7 +90,6 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
           {rating}/10
         </Rating>
       </ImageContainer>
-      <Year>{year}</Year>
     </Container>
   </Link>
 );
