@@ -207,20 +207,32 @@ export default ({
             <KeyValueRow>
               <Key>Companies </Key>
               <Value>
-              {result.production_companies &&
-                result.production_companies.map((company, index) => 
-                  index === result.production_companies.length - 1
-                    ? company.name
-                    : `${company.name}     /     `)
+              {result.production_companies && result.production_companies.length > 0 ?
+                result.production_companies
+                .filter((company, index) => index < 5)
+                .map((company, index) => 
+                  index === result.production_companies.length - 1 |
+                  index === 4
+                    ? <span>{company.name}</span>
+                    : 
+                    <>
+                      <span>{company.name}</span>
+                      <Divider>/</Divider>
+                    </>
+                  )
+                : "None"
               }
               </Value>
             </KeyValueRow>
             <KeyValueRow>
               <Key>Countries</Key>
               <Value>
-                {result.production_countries &&
-                  result.production_countries.map((country, index) => 
-                    index === result.production_countries.length - 1
+                {result.production_countries && result.production_countries.length > 0 ?
+                  result.production_countries
+                  .filter((country, index) => index < 5)
+                  .map((country, index) => 
+                    index === result.production_countries.length - 1 |
+                    index === 4
                       ?
                       <>
                         <span>{`${country.name}   `}</span>
@@ -230,9 +242,10 @@ export default ({
                       <>
                         <span>{`${country.name}   `}</span>
                         <ReactCountryFlag countryCode={`${country.iso_3166_1}`} svg />
-                        <span>     /     </span>
+                        <Divider>/</Divider>
                       </>
                     )
+                  : "None"
                   }
                 </Value>
             </KeyValueRow>
