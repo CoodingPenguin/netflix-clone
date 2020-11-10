@@ -20,9 +20,9 @@ const Backdrop = styled.div`
   color: white;
   width: 100%;
   height: 300px;
-  background: linear-gradient(to bottom, transparent, #111111f2),
-    url(${(props) => props.bgImage});
-  background-position: center center;
+  background: linear-gradient(to bottom, transparent, 50%, #111111f2),
+    url(${(props) => props.bgImage ? `https://image.tmdb.org/t/p/original${props.bgImage}` : require("../Assets/noBackdrop.png")});
+  background-position: center 25%;
   background-size: cover;
   z-index: 0;
   display: flex;
@@ -203,7 +203,7 @@ export default ({
         </title>
       </Helmet>
       <Backdrop
-        bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+        bgImage={result.backdrop_path}
       >
         <Title>{isMovie ? result.original_title : result.original_name}</Title>
         <ItemContainer>
