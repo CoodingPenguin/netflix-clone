@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import { movieApi, tvApi } from "../api";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
-import Badge from "Components/Badge";
 import Summary from "Components/Summary";
 
 const Container = styled.div`
@@ -28,26 +27,6 @@ const Backdrop = styled.div`
   filter: blur(3px);
   opacity: 0.5;
   z-index: 0;
-`;
-
-const Navigator = styled.div`
-  width: 10%;
-  height: 100%;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  border-right: 1px solid white;
-  margin-right: 20px;
-`;
-
-const Tab = styled.div`
-  width: 100%;
-  color: white;
-  font-size: 16px;
-  text-align: right;
-  margin-bottom: 50px;
 `;
 
 // { result, error, loading }
@@ -111,11 +90,6 @@ export default ({
       <Backdrop
         bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
       />
-      <Navigator>
-        <Tab>{isMovie ? "Movie" : "Show"}</Tab>
-        <Tab>Details</Tab>
-        <Tab>{isMovie ? "Series" : "Seasons"}</Tab>
-      </Navigator>
       <Summary result={result} isMovie={isMovie} />
     </Container>
   );

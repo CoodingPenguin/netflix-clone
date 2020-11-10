@@ -3,16 +3,26 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Badge from "Components/Badge";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Title = styled.h3`
+  font-size: 32px;
+  margin-bottom: 20px;
+`;
+
 const Content = styled.div`
   display: flex;
-  width: 90%;
-  height: 100%;
+  width: 100%;
+  height: 400px;
   position: relative;
   z-index: 1;
 `;
 
 const Cover = styled.div`
-  width: 30%;
+  width: 320px;
   height: 100%;
   background-image: url(${(props) => props.bgImage});
   background-position: center center;
@@ -21,16 +31,13 @@ const Cover = styled.div`
 `;
 
 const Data = styled.div`
-  width: 70%;
-  margin-left: 10px;
-`;
-
-const Title = styled.h3`
-  font-size: 32px;
+  width: 100%;
+  margin-left: 20px;
+  padding: 5px;
 `;
 
 const ItemContainer = styled.div`
-  margin: 20px 0;
+  margin-bottom: 25px;
 `;
 
 const Item = styled.span``;
@@ -51,89 +58,95 @@ const Overview = styled.p`
 `;
 
 const Summary = ({ result, isMovie }) => (
-  <Content>
-    <Cover
-      bgImage={
-        result.poster_path
-          ? `https://image.tmdb.org/t/p/original${result.poster_path}`
-          : require("../Assets/noPosterBig.png")
-      }
-    ></Cover>
-    <Data>
-      <Title>{isMovie ? result.original_title : result.original_name}</Title>
-      <ItemContainer>
-        <Item>
-          {isMovie
-            ? result.release_date.substring(0, 4)
-            : result.first_air_date.substring(0, 4)}
-        </Item>
-        <Divider>•</Divider>
-        <Item>{isMovie ? result.runtime : result.episode_run_time[0]} min</Item>
-        <Divider>•</Divider>
-        <Item>
-          {result.genres &&
-            result.genres.map((genre, index) =>
-              index === result.genres.length - 1
-                ? genre.name
-                : `${genre.name}  /  `
-            )}
-        </Item>
-      </ItemContainer>
-      <ItemContainer>
-        <Item>
-          <Badge
-            title="Website"
-            color="black"
-            bgColor="#eeeeee"
-            url={result.homepage}
-          />
-        </Item>
-        <Blank />
+  <Container>
+    <Title>{isMovie ? result.original_title : result.original_name}</Title>
+    <ItemContainer>
+      <Item>
         {isMovie
-          ? result.imdb_id && (
-              <Item>
-                <Badge
-                  title="IMDB"
-                  color="black"
-                  bgColor="#f3ce13"
-                  url={`https://www.imdb.com/title/${result.imdb_id}`}
-                />
-              </Item>
-            )
-          : result.external_ids.imdb_id && (
-              <Item>
-                <Badge
-                  title="IMDB"
-                  color="black"
-                  bgColor="#f3ce13"
-                  url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
-                />
-              </Item>
-            )}
-        <Item>
-          {result.videos &&
-            result.videos.results
-              .filter((video) => video.site === "YouTube")
-              .map((video, index) => {
-                const { id, key, type } = video;
-                return (
-                  <>
-                    <Blank />
-                    <Badge
-                      key={id}
-                      title={`Youtube - ${type}`}
-                      color="black"
-                      bgColor="#e62117"
-                      url={`https://www.youtube.com/watch?v=${key}`}
-                    />
-                  </>
-                );
-              })}
-        </Item>
-      </ItemContainer>
-      <Overview>{result.overview}</Overview>
-    </Data>
-  </Content>
+          ? result.release_date.substring(0, 4)
+          : result.first_air_date.substring(0, 4)}
+      </Item>
+      <Divider>•</Divider>
+      <Item>{isMovie ? result.runtime : result.episode_run_time[0]} min</Item>
+      <Divider>•</Divider>
+      <Item>
+        {result.genres &&
+          result.genres.map((genre, index) =>
+            index === result.genres.length - 1
+              ? genre.name
+              : `${genre.name}  /  `
+          )}
+      </Item>
+    </ItemContainer>
+    <Content>
+      <Cover
+        bgImage={
+          result.poster_path
+            ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+            : require("../Assets/noPosterBig.png")
+        }
+      ></Cover>
+      <Data>
+        <ItemContainer>
+          <Item>
+            <Badge
+              key={1}
+              title="Website"
+              color="black"
+              bgColor="#eeeeee"
+              url={result.homepage}
+            />
+          </Item>
+          <Blank />
+          {isMovie
+            ? result.imdb_id && (
+                <Item>
+                  <Badge
+                    key={2}
+                    title="IMDB"
+                    color="black"
+                    bgColor="#f3ce13"
+                    url={`https://www.imdb.com/title/${result.imdb_id}`}
+                  />
+                </Item>
+              )
+            : result.external_ids.imdb_id && (
+                <Item>
+                  <Badge
+                    key={2}
+                    title="IMDB"
+                    color="black"
+                    bgColor="#f3ce13"
+                    url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
+                  />
+                </Item>
+              )}
+          <Item>
+            {result.videos &&
+              result.videos.results
+                .filter((video) => video.site === "YouTube")
+                .slice(0, 3)
+                .map((video, index) => {
+                  const { id, key, type } = video;
+                  return (
+                    <>
+                      <Blank />
+                      <Badge
+                        key={id}
+                        title={`Youtube - ${type}`}
+                        color="black"
+                        bgColor="#e62117"
+                        url={`https://www.youtube.com/watch?v=${key}`}
+                      />
+                    </>
+                  );
+                })}
+          </Item>
+        </ItemContainer>
+        <Overview>{result.overview}</Overview>
+      </Data>
+    </Content>
+  </Container>
 );
 
 Summary.propTypes = {
@@ -145,9 +158,11 @@ Summary.propTypes = {
     first_air_date: PropTypes.string,
     runtime: PropTypes.number,
     episode_run_time: PropTypes.arrayOf(PropTypes.number),
-    genres: PropTypes.shape({
-      name: PropTypes.string,
-    }),
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+      })
+    ),
     homepage: PropTypes.string,
     imdb_id: PropTypes.string,
     external_ids: PropTypes.shape({

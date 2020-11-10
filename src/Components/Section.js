@@ -8,9 +8,26 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.span`
-  font-size: 14px;
+const Title = styled.div`
+  padding-left: 12px;
+  font-size: 18px;
   font-weight: 600;
+  line-height: 6px;
+  position: relative;
+  z-index: 0;
+`;
+
+const Dot = styled.div`
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  border-radius: 7px;
+  top: -4px;
+  bottom: 0;
+  left: -2px;
+  background: #fddb3a;
+  opacity: 0.8;
+  z-index: -1;
 `;
 
 const Grid = styled.div`
@@ -22,7 +39,10 @@ const Grid = styled.div`
 
 const Section = ({ title, children }) => (
   <Container>
-    <Title>{title}</Title>
+    <Title>
+      {title}
+      <Dot />
+    </Title>
     <Grid>{children}</Grid>
   </Container>
 );
