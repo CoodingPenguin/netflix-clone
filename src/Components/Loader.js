@@ -13,7 +13,7 @@ const Container = styled.div`
 const Rectangle = styled.div`
   width: 1vh;
   height: 6vh;
-  margin: 3px;
+  margin: 7px;
   background: white;
   animation: 1.5s scaleUpDownRect ${(props) => props.delay} infinite ease-in-out;
 
