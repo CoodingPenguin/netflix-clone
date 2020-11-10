@@ -19,7 +19,7 @@ const Container = styled.div`
 const Backdrop = styled.div`
   color: white;
   width: 100%;
-  height: 200px;
+  height: 300px;
   background: linear-gradient(to bottom, transparent, #111111f2),
     url(${(props) => props.bgImage});
   background-position: center center;
