@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 import { movieApi } from "../api";
 import styled from "styled-components";
 import Poster from "Components/Poster";
@@ -10,7 +11,7 @@ const Grid = styled.div`
   grid-gap: 25px;
 `;
 
-export default ({ id }) => {
+export default withRouter(({ id }) => {
   const [result, setResult] = useState([]);
   const [error, setError] = useState(null);
 
@@ -52,4 +53,4 @@ export default ({ id }) => {
         ))}
     </Grid>
   );
-};
+});
