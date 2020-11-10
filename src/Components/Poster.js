@@ -83,12 +83,16 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
           <Title>{title}</Title>
           <Year>{year}</Year>
         </Image>
-        <Rating>
-          <span role="img" aria-label="rating">
-            ⭐
-          </span>{" "}
-          {rating}/10
-        </Rating>
+        {rating 
+          ?
+          <Rating>
+            <span role="img" aria-label="rating">
+              ⭐
+            </span>{" "}
+            {rating}/10
+          </Rating>
+          : ""
+        }
       </ImageContainer>
     </Container>
   </Link>

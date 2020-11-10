@@ -6,6 +6,9 @@ import { movieApi, tvApi } from "../api";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
 import ReactCountryFlag from "react-country-flag";
+import Badge from "Components/Badge";
+import Poster from "Components/Poster";
+import Collections from "./Collections";
 
 const Container = styled.div`
   width: 100%;
@@ -42,7 +45,7 @@ const ItemContainer = styled.div``;
 const Item = styled.span``;
 
 const Divider = styled.span`
-  margin: 0 10px;
+  margin: 0 5px;
 `;
 
 const ContentContainer = styled.div`
@@ -63,7 +66,7 @@ const ContentTitle = styled.div`
   font-size: 20px;
   font-weight: 600;
   line-height: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   position: relative;
   z-index: 0;
 `;
@@ -105,6 +108,18 @@ const Key = styled.span`
 const Value = styled.span`
   opacity: 0.75;
   font-size: 14px;
+`;
+
+const Blank = styled.div`
+  width: 100%;
+  height: 20px;
+`;
+
+const Grid = styled.div`
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 125px);
+  grid-gap: 25px;
 `;
 
 export default ({
@@ -349,6 +364,127 @@ export default ({
               </KeyValueRow>
             </ContentItem>
           </Content>
+        <Content>
+          <ContentTitle>
+            Links
+            <Dot/>
+          </ContentTitle>
+          <ContentItem>
+            {
+              result.homepage &&
+              <Badge
+                key={1}
+                title="Website"
+                color="black"
+                bgColor="#eeeeee"
+                url={result.homepage}
+            />
+            }
+            {isMovie
+            ? result.imdb_id && (
+                <Item>
+                  <Badge
+                    key={2}
+                    title="IMDB"
+                    color="black"
+                    bgColor="#f3ce13"
+                    url={`https://www.imdb.com/title/${result.imdb_id}`}
+                  />
+                </Item>
+              )
+            : result.external_ids.imdb_id && (
+                <Item>
+                  <Badge
+                    key={2}
+                    title="IMDB"
+                    color="black"
+                    bgColor="#f3ce13"
+                    url={`https://www.imdb.com/title/${result.external_ids.imdb_id}`}
+                  />
+                </Item>
+              )}
+            {result.videos &&
+              result.videos.results
+                .filter((video) => video.site === "YouTube")
+                .slice(0, 3)
+                .map((video, index) => {
+                  const { id, key, type } = video;
+                  return (
+                    <>
+                      <Badge
+                        key={id}
+                        title={`Youtube - ${type}`}
+                        color="black"
+                        bgColor="#e62117"
+                        url={`https://www.youtube.com/watch?v=${key}`}
+                      />
+                    </>
+                  );
+                }
+              )}
+            <Blank />
+            {
+              result.videos.results 
+              && result.videos.results.filter((video) => video.site === "YouTube").length > 0
+              && <iframe 
+                  width="600" 
+                  height="400" 
+                  src={`https://www.youtube.com/embed/${result.videos.results.filter((video) => video.site === "YouTube")[0].key}`} 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen
+                ></iframe>
+            }
+          </ContentItem>
+        </Content>
+        <Content>
+          { 
+            result.belongs_to_collection 
+            ? 
+            <>
+              <ContentTitle>
+                  Series
+                  <Dot />
+              </ContentTitle>
+              <ContentItem>
+                <Collections id={result.belongs_to_collection.id} />
+              </ContentItem>
+            </>
+            :
+            "" 
+          }
+          {
+            result.seasons
+            ?
+            <>
+              <ContentTitle>
+                Seasons
+                <Dot />
+              </ContentTitle>
+              <ContentItem>
+                <Grid>
+                {result.seasons
+                  && result.seasons.length > 0 
+                  && result.seasons.map((show, index) => (
+                    <Poster
+                      key={index}
+                      id={show.id}
+                      title={show.name}
+                      imageUrl={show.poster_path}
+                      rating=""
+                      isMovie={false}
+                      year={
+                        show.air_date && show.air_date.substring(0, 4)
+                      }
+                    />
+                ))}
+                </Grid>
+              </ContentItem>
+            </>
+            :
+            ""
+          }
+        </Content>
       </ContentContainer>
     </Container>
   );

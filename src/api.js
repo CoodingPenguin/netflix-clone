@@ -47,4 +47,5 @@ export const movieApi = {
         query: encodeURIComponent(term),
       },
     }),
+  series: (id) => api.get(`collection/${id}`)
 };
