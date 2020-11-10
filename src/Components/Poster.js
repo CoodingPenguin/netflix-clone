@@ -13,7 +13,7 @@ const Image = styled.div`
   background-size: cover;
   background-color: white;
   border-radius: 4px;
-  opacity: 0.6;
+  opacity: 0.8;
   background-position: center center;
   transition: opacity 0.1s linear;
   display: flex;
@@ -26,7 +26,7 @@ const Title = styled.span`
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  text-shadow: #111111 0 0 0.5px, #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px,
+  text-shadow: #333333 0 0 1px, #fddb3a 0.5px 0 5px, #fddb3a -0.5px 0 5px,
     #fddb3a 0 0.5px 5px, #fddb3a 0 -0.5px 5px;
   color: #eeeeee;
   opacity: 0;

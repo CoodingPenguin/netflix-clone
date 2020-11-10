@@ -5,7 +5,7 @@ import Helmet from "react-helmet";
 import { movieApi, tvApi } from "../api";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
-import Summary from "Components/Summary";
+import ReactCountryFlag from "react-country-flag";
 
 const Container = styled.div`
   width: 100%;
@@ -14,13 +14,13 @@ const Container = styled.div`
 `;
 
 const Backdrop = styled.div`
+  color: white;
   width: 100%;
   height: 200px;
-  background: linear-gradient(to bottom, transparent, #111111),
+  background: linear-gradient(to bottom, transparent, #111111f2),
     url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
-  opacity: 0.6;
   z-index: 0;
   display: flex;
   flex-direction: column;
@@ -45,11 +45,17 @@ const Divider = styled.span`
 `;
 
 const ContentContainer = styled.div`
-  padding: 30px 200px 10px 200px;
+  padding: 30px 0px;
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  width: 60%;
+  margin-bottom: 45px;
+`;
 
 const ContentTitle = styled.div`
   padding-left: 10px;
@@ -81,8 +87,23 @@ const ContentItem = styled.div`
 const Overview = styled.p`
   width: 100%;
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 0.75;
   line-height: 1.5;
+`;
+
+const KeyValueRow = styled.div`
+  margin-bottom: 10px;
+`;
+
+const Key = styled.span`
+  font-size: 16px;
+  font-weight: 500;
+  margin-right: 5px;
+`;
+
+const Value = styled.span`
+  opacity: 0.75;
+  font-size: 14px;
 `;
 
 export default ({
@@ -175,6 +196,46 @@ export default ({
           </ContentTitle>
           <ContentItem>
             <Overview>{result.overview}</Overview>
+          </ContentItem>
+        </Content>
+        <Content>
+          <ContentTitle>
+              Production
+              <Dot />
+          </ContentTitle>
+          <ContentItem>
+            <KeyValueRow>
+              <Key>Companies </Key>
+              <Value>
+              {result.production_companies &&
+                result.production_companies.map((company, index) => 
+                  index === result.production_companies.length - 1
+                    ? company.name
+                    : `${company.name}     /     `)
+              }
+              </Value>
+            </KeyValueRow>
+            <KeyValueRow>
+              <Key>Countries</Key>
+              <Value>
+                {result.production_countries &&
+                  result.production_countries.map((country, index) => 
+                    index === result.production_countries.length - 1
+                      ?
+                      <>
+                        <span>{`${country.name}   `}</span>
+                        <ReactCountryFlag countryCode={`${country.iso_3166_1}`} svg />
+                      </>
+                      :
+                      <>
+                        <span>{`${country.name}   `}</span>
+                        <ReactCountryFlag countryCode={`${country.iso_3166_1}`} svg />
+                        <span>     /     </span>
+                      </>
+                    )
+                  }
+                </Value>
+            </KeyValueRow>
           </ContentItem>
         </Content>
       </ContentContainer>
