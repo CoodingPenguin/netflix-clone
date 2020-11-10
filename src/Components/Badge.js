@@ -8,10 +8,12 @@ const Wrapper = styled.span`
   font-weight: bold;
   color: ${(props) => props.color};
   background: ${(props) => props.bgColor};
+  box-shadow: 2px 2px 2px rgba(30, 30, 30, 0.2);
 `;
 
 const Link = styled.a`
   text-decoration: none;
+  font-weight: bold;
 `;
 
 const Badge = ({ title, color, bgColor, url }) => (
