@@ -8,28 +8,83 @@ import Message from "Components/Message";
 import Summary from "Components/Summary";
 
 const Container = styled.div`
-  height: calc(100vh - 50px);
   width: 100%;
-  position: relative;
-  padding: 20px 50px;
   display: flex;
+  flex-direction: column;
 `;
 
 const Backdrop = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background-image: url(${(props) => props.bgImage});
+  height: 200px;
+  background: linear-gradient(to bottom, transparent, #111111),
+    url(${(props) => props.bgImage});
   background-position: center center;
   background-size: cover;
-  filter: blur(3px);
-  opacity: 0.5;
+  opacity: 0.6;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 20px;
+  color: white;
+  text-shadow: rgba(10, 10, 10, 0.5) 0 0 10px;
+`;
+
+const Title = styled.h3`
+  font-size: 32px;
+  margin-bottom: 20px;
+`;
+
+const ItemContainer = styled.div``;
+
+const Item = styled.span``;
+
+const Divider = styled.span`
+  margin: 0 10px;
+`;
+
+const ContentContainer = styled.div`
+  padding: 30px 200px 10px 200px;
+  display: flex;
+`;
+
+const Content = styled.div``;
+
+const ContentTitle = styled.div`
+  padding-left: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 6px;
+  margin-bottom: 20px;
+  position: relative;
   z-index: 0;
 `;
 
-// { result, error, loading }
+const Dot = styled.div`
+  position: absolute;
+  height: 7px;
+  width: 7px;
+  border-radius: 7px;
+  top: -4px;
+  bottom: 0;
+  left: -2px;
+  background: #fddb3a;
+  opacity: 0.8;
+  z-index: -1;
+`;
+
+const ContentItem = styled.div`
+  padding-left: 20px;
+`;
+
+const Overview = styled.p`
+  width: 100%;
+  font-size: 14px;
+  opacity: 0.7;
+  line-height: 1.5;
+`;
+
 export default ({
   history: { push },
   location: { pathname },
@@ -89,8 +144,40 @@ export default ({
       </Helmet>
       <Backdrop
         bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
-      />
-      <Summary result={result} isMovie={isMovie} />
+      >
+        <Title>{isMovie ? result.original_title : result.original_name}</Title>
+        <ItemContainer>
+          <Item>
+            {isMovie
+              ? result.release_date.substring(0, 4)
+              : result.first_air_date.substring(0, 4)}
+          </Item>
+          <Divider>•</Divider>
+          <Item>
+            {isMovie ? result.runtime : result.episode_run_time[0]} min
+          </Item>
+          <Divider>•</Divider>
+          <Item>
+            {result.genres &&
+              result.genres.map((genre, index) =>
+                index === result.genres.length - 1
+                  ? genre.name
+                  : `${genre.name}  /  `
+              )}
+          </Item>
+        </ItemContainer>
+      </Backdrop>
+      <ContentContainer>
+        <Content>
+          <ContentTitle>
+            Overview
+            <Dot />
+          </ContentTitle>
+          <ContentItem>
+            <Overview>{result.overview}</Overview>
+          </ContentItem>
+        </Content>
+      </ContentContainer>
     </Container>
   );
 };
