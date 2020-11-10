@@ -59,6 +59,13 @@ const ContentContainer = styled.div`
 const Content = styled.div`
   width: 60%;
   margin-bottom: 45px;
+
+  @media only screen and (min-width: 1400px){
+    width: 36%;
+  }
+  @media only screen and (max-width: 640px){
+    width: 90%;
+  }
 `;
 
 const ContentTitle = styled.div`
@@ -120,6 +127,17 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 125px);
   grid-gap: 25px;
+`;
+
+const Iframe = styled.iframe`
+  height: 400px;
+
+  @media only screen and (min-width: 1400px){
+    height: 500px;
+  }
+  @media only screen and (max-width: 640px){
+    height: 300px;
+  }
 `;
 
 export default ({
@@ -426,14 +444,13 @@ export default ({
             {
               result.videos.results 
               && result.videos.results.filter((video) => video.site === "YouTube").length > 0
-              && <iframe 
-                  width="600" 
-                  height="400" 
+              && <Iframe 
+                  width="100%" 
                   src={`https://www.youtube.com/embed/${result.videos.results.filter((video) => video.site === "YouTube")[0].key}`} 
                   frameBorder="0" 
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                   allowFullScreen
-                ></iframe>
+                ></Iframe>
             }
           </ContentItem>
         </Content>
